@@ -7,9 +7,7 @@ class CalendarAddPage extends StatefulWidget {
   const CalendarAddPage({Key? key}) : super(key: key);
 
   @override
-  _CalendarAddPageState createState() {
-    return _CalendarAddPageState();
-  }
+  State<CalendarAddPage> createState() => _CalendarAddPageState();
 }
 
 class _CalendarAddPageState extends State<CalendarAddPage> {
@@ -88,6 +86,7 @@ class _CalendarAddPageState extends State<CalendarAddPage> {
             showInSnackBar('Please fix the errors in red before submitting.');
           } else {
             form?.save();
+            final navigator = Navigator.of(context);
             var result = await _deviceCalendarPlugin.createCalendar(
               _calendarName,
               calendarColor: _colorChoice?.value,
@@ -95,7 +94,7 @@ class _CalendarAddPageState extends State<CalendarAddPage> {
             );
 
             if (result.isSuccess) {
-              Navigator.pop(context, true);
+              navigator.pop(true);
             } else {
               showInSnackBar(result.errors
                   .map((err) => '[${err.errorCode}] ${err.errorMessage}')

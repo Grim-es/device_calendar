@@ -18,7 +18,7 @@ void main() {
     final addEventButtonFinder = find.byKey(const Key('addEventButton'));
     final titleFieldFinder = find.byKey(const Key('titleField'));
     final deleteButtonFinder = find.byKey(const Key('deleteEventButton'));
-//TODO: remove redundant restarts. Currently needed because the first screen is always "test starting..."
+    //TODO: remove redundant restarts. Currently needed because the first screen is always "test starting..."
     testWidgets('starts on calendars page', (WidgetTester tester) async {
       app.main();
       await tester.pumpAndSettle();

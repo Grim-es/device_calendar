@@ -1,3 +1,5 @@
+// ignore_for_file: no_logic_in_create_state
+
 import 'dart:io';
 
 import 'package:collection/collection.dart';
@@ -24,9 +26,8 @@ class CalendarEventPage extends StatefulWidget {
       : super(key: key);
 
   @override
-  _CalendarEventPageState createState() {
-    return _CalendarEventPageState(_calendar, _event, _recurringEventDialog);
-  }
+  State<CalendarEventPage> createState() =>
+      _CalendarEventPageState(_calendar, _event, _recurringEventDialog);
 }
 
 class _CalendarEventPageState extends State<CalendarEventPage> {
@@ -937,6 +938,7 @@ class _CalendarEventPageState extends State<CalendarEventPage> {
                         backgroundColor: Colors.red),
                     onPressed: () async {
                       bool? result = true;
+                      final navigator = Navigator.of(context);
                       if (!(_rrule != null)) {
                         await _deviceCalendarPlugin.deleteEvent(
                             _calendar.id, _event?.eventId);
@@ -952,7 +954,7 @@ class _CalendarEventPageState extends State<CalendarEventPage> {
                       }
 
                       if (result == true) {
-                        Navigator.pop(context, true);
+                        navigator.pop(true);
                       }
                     },
                     child: const Text('Delete'),
@@ -985,11 +987,12 @@ class _CalendarEventPageState extends State<CalendarEventPage> {
             _event?.reminders = _reminders;
             _event?.availability = _availability;
             _event?.status = _eventStatus;
+            final navigator = Navigator.of(context);
             var createEventResult =
                 await _deviceCalendarPlugin.createOrUpdateEvent(_event);
             if (createEventResult?.isSuccess == true) {
-              Navigator.pop(context, true);
-            } else {
+              navigator.pop(true);
+            } else if (mounted) {
               showInSnackBar(
                   context,
                   createEventResult?.errors

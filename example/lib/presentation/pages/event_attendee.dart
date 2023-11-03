@@ -1,3 +1,5 @@
+// ignore_for_file: no_logic_in_create_state
+
 import 'dart:io';
 
 import 'package:device_calendar/device_calendar.dart';
@@ -13,7 +15,7 @@ class EventAttendeePage extends StatefulWidget {
       : super(key: key);
 
   @override
-  _EventAttendeePageState createState() =>
+  State<EventAttendeePage> createState() =>
       _EventAttendeePageState(attendee, eventId ?? '');
 }
 
@@ -112,10 +114,11 @@ class _EventAttendeePageState extends State<EventAttendeePage> {
                     onTap: () async {
                       _deviceCalendarPlugin = DeviceCalendarPlugin();
 
-                      await _deviceCalendarPlugin
-                          .showiOSEventModal(_eventId);
-                      Navigator.popUntil(
-                          context, ModalRoute.withName(AppRoutes.calendars));
+                      final navigator = Navigator.of(context);
+
+                      await _deviceCalendarPlugin.showiOSEventModal(_eventId);
+                      navigator
+                          .popUntil(ModalRoute.withName(AppRoutes.calendars));
                       //TODO: finish calling and getting attendee details from iOS
                     },
                     leading: const Icon(Icons.edit),

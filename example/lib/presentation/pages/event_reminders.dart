@@ -1,3 +1,5 @@
+// ignore_for_file: no_logic_in_create_state
+
 import 'package:flutter/material.dart';
 import 'package:device_calendar/device_calendar.dart';
 
@@ -6,7 +8,7 @@ class EventRemindersPage extends StatefulWidget {
   const EventRemindersPage(this._reminders, {Key? key}) : super(key: key);
 
   @override
-  _EventRemindersPageState createState() =>
+  State<EventRemindersPage> createState() =>
       _EventRemindersPageState(_reminders);
 }
 

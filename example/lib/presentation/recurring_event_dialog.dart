@@ -1,3 +1,5 @@
+// ignore_for_file: no_logic_in_create_state
+
 import 'package:flutter/material.dart';
 import 'package:device_calendar/device_calendar.dart';
 
@@ -8,16 +10,21 @@ class RecurringEventDialog extends StatefulWidget {
   final VoidCallback _onLoadingStarted;
   final Function(bool) _onDeleteFinished;
 
-  const RecurringEventDialog(this._deviceCalendarPlugin, this._calendarEvent,
-      this._onLoadingStarted, this._onDeleteFinished,
-      {Key? key})
-      : super(key: key);
+  const RecurringEventDialog(
+    this._deviceCalendarPlugin,
+    this._calendarEvent,
+    this._onLoadingStarted,
+    this._onDeleteFinished, {
+    super.key,
+  });
 
   @override
-  _RecurringEventDialogState createState() =>
-      _RecurringEventDialogState(_deviceCalendarPlugin, _calendarEvent,
-          onLoadingStarted: _onLoadingStarted,
-          onDeleteFinished: _onDeleteFinished);
+  State<RecurringEventDialog> createState() => _RecurringEventDialogState(
+        _deviceCalendarPlugin,
+        _calendarEvent,
+        onLoadingStarted: _onLoadingStarted,
+        onDeleteFinished: _onDeleteFinished,
+      );
 }
 
 class _RecurringEventDialogState extends State<RecurringEventDialog> {

@@ -1,3 +1,5 @@
+// ignore_for_file: no_logic_in_create_state
+
 import 'dart:async';
 
 import 'package:device_calendar/device_calendar.dart';
@@ -13,9 +15,8 @@ class CalendarEventsPage extends StatefulWidget {
   const CalendarEventsPage(this._calendar, {Key? key}) : super(key: key);
 
   @override
-  _CalendarEventsPageState createState() {
-    return _CalendarEventsPageState(_calendar);
-  }
+  State<CalendarEventsPage> createState() =>
+      _CalendarEventsPageState(_calendar);
 }
 
 class _CalendarEventsPageState extends State<CalendarEventsPage> {
@@ -156,9 +157,9 @@ class _CalendarEventsPageState extends State<CalendarEventsPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Warning'),
-          content: SingleChildScrollView(
+          content: const SingleChildScrollView(
             child: ListBody(
-              children: const <Widget>[
+              children: <Widget>[
                 Text('This will delete this calendar'),
                 Text('Are you sure?'),
               ],
@@ -167,12 +168,13 @@ class _CalendarEventsPageState extends State<CalendarEventsPage> {
           actions: <Widget>[
             TextButton(
               onPressed: () async {
+                final navigator = Navigator.of(context);
                 var returnValue =
                     await _deviceCalendarPlugin.deleteCalendar(_calendar.id!);
                 debugPrint(
                     'returnValue: ${returnValue.data}, ${returnValue.errors}');
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
+                navigator.pop();
+                navigator.pop();
               },
               child: const Text('Delete!'),
             ),
